@@ -46,7 +46,8 @@ InmobiliariaApp/
 
 1. Clonar el repositorio:
 
-   git clone https://github.com/tuUsuario/InmobiliariaAdmin.git
+   git clone https://github.com/alejandroxgoncalves/InmobiliariaAdmin.git
+
    cd InmobiliariaAdmin
 
 2. Abrir la solución en Visual Studio.
