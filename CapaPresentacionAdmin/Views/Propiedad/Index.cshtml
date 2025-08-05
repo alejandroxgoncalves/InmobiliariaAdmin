@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Inmobiliaria.Dominio.Propiedad>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Panel de Propiedades</h1>
+
+<h5>filtrar propiedad por:</h5>
+
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="form-row row">
+        <div class="form-group col-md-3">
+            <label>Tipo Operacion</label>
+            <select name="tipoOperacion" class="form-control">
+                <option value="">-- Todas --</option>
+                @{
+                    var tipoOperacionSeleccionado = Context.Request.Query["tipoOperacion"].ToString();
+                    foreach (var tipo in (SelectList)ViewBag.TipoOperaciones)
+                    {
+                        var selected = tipo.Text == tipoOperacionSeleccionado ? "selected" : "";
+                        @:<option value="@tipo.Text" @selected>@tipo.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label>Tipo Propiedad</label>
+            <select name="tipoPropiedad" class="form-control">
+                <option value="">-- Todas --</option>
+                @{
+                    var tipoPropiedadSeleccionado = Context.Request.Query["tipoPropiedad"].ToString();
+                    foreach (var tipo in (SelectList)ViewBag.TiposPropiedad)
+                    {
+                        var selected = tipo.Text == tipoPropiedadSeleccionado ? "selected" : "";
+                        @:<option value="@tipo.Text" @selected>@tipo.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label>Valor mínimo (x m²)</label>
+            <input type="number" step="0.01" name="valorMin" class="form-control"
+                    value="@Context.Request.Query["valorMin"]" />
+        </div>
+
+        <div class="form-group col-md-2">
+            <label>Valor máximo (x m²)</label>
+            <input type="number" step="0.01" name="valorMax" class="form-control"
+                    value="@Context.Request.Query["valorMax"]" />
+        </div>
+
+        <div class="form-group col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+        </div>
+    </div>
+</form>
+
+
+<p>
+    <a asp-action="Create">Crear nueva propiedad</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.TipoPropiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.Direccion)</th>
+            <th>@Html.DisplayNameFor(model => model.SuperficieTotal)</th>
+            <th>@Html.DisplayNameFor(model => model.SuperficieConstruida)</th>
+            <th>@Html.DisplayNameFor(model => model.Banios)</th>
+            <th>@Html.DisplayNameFor(model => model.Valor)</th>
+            <th>@Html.DisplayNameFor(model => model.Dormitorios)</th>
+            <th>@Html.DisplayNameFor(model => model.TieneGarage)</th>
+            <th>@Html.DisplayNameFor(model => model.Antiguedad)</th>
+            <th>Activa</th>
+            <th>@Html.DisplayNameFor(model => model.TipoOperacion)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var primeraImagen = item.Imagenes?.FirstOrDefault()?.Url;
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(primeraImagen))
+                    {
+                        <img src="@primeraImagen" alt="Imagen" style="width: 80px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sin imagen</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.TipoPropiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                <td>@Html.DisplayFor(modelItem => item.SuperficieTotal)</td>
+                <td>@Html.DisplayFor(modelItem => item.SuperficieConstruida)</td>
+                <td>@Html.DisplayFor(modelItem => item.Banios)</td>
+                <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                <td>@Html.DisplayFor(modelItem => item.Dormitorios)</td>
+                <td>@Html.DisplayFor(modelItem => item.TieneGarage)</td>
+                <td>@Html.DisplayFor(modelItem => item.Antiguedad)</td>
+                <td>
+                    <input type="checkbox" disabled @(item.Activa ? "checked" : "") />
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.TipoOperacion)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

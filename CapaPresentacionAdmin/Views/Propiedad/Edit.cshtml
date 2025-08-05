@@ -1,0 +1,136 @@
+﻿@model Inmobiliaria.Dominio.Propiedad
+
+@{
+    ViewData["Title"] = "Editar Propiedad";
+}
+
+<h1>Editar</h1>
+
+<h4>Propiedad</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipoPropiedad" class="control-label"></label>
+                <input asp-for="TipoPropiedad" class="form-control" />
+                <span asp-validation-for="TipoPropiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SuperficieTotal" class="control-label"></label>
+                <input asp-for="SuperficieTotal" class="form-control" />
+                <span asp-validation-for="SuperficieTotal" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SuperficieConstruida" class="control-label"></label>
+                <input asp-for="SuperficieConstruida" class="form-control" />
+                <span asp-validation-for="SuperficieConstruida" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Banios" class="control-label"></label>
+                <input asp-for="Banios" class="form-control" />
+                <span asp-validation-for="Banios" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Dormitorios" class="control-label"></label>
+                <input asp-for="Dormitorios" class="form-control" />
+                <span asp-validation-for="Dormitorios" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="TieneGarage" />
+                <label asp-for="TieneGarage" class="form-check-label"></label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Antiguedad" class="control-label"></label>
+                <input asp-for="Antiguedad" class="form-control" />
+                <span asp-validation-for="Antiguedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="Activa" />
+                <label asp-for="Activa" class="form-check-label"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="TipoOperacion" class="control-label"></label>
+                <select asp-for="TipoOperacion" class="form-control"
+                        asp-items="Html.GetEnumSelectList<Inmobiliaria.Dominio.TipoOperacion>()">
+                    <option value="">-- Seleccione --</option>
+                </select>
+                <span asp-validation-for="TipoOperacion" class="text-danger"></span>
+            </div>
+
+            <!-- NUEVAS IMAGENES -->
+            <div class="form-group">
+                <label>Agregar nuevas imágenes</label>
+                <input type="file" name="imagenes" multiple class="form-control" />
+            </div>
+
+            <!-- IMAGENES EXISTENTES -->
+            <div class="form-group">
+                <label>Imágenes actuales</label>
+                <div>
+                    @if (Model.Imagenes != null && Model.Imagenes.Any())
+                    {
+                        foreach (var img in Model.Imagenes)
+                        {
+                            <img src="@img.Url" alt="Imagen" style="width: 100px; margin: 5px; border-radius: 4px; box-shadow: 0 0 5px #ccc;" />
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay imágenes asociadas.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al listado</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

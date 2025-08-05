@@ -1,0 +1,32 @@
+# Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+
+# Archivos de build
+bin/
+obj/
+TestResults/
+
+# Configuración local
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# DB locales
+*.db
+*.sqlite
+*.mdf
+
+# Archivos temporales
+*.log
+*.tmp
+*.bak
+
+# Publicación
+publish/
+*.publish.xml
+
+# Extras
+.vscode/
+.idea/

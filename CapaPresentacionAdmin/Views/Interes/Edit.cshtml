@@ -1,0 +1,64 @@
+﻿@model Inmobiliaria.Dominio.Interes
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Interés</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipoPropiedad" class="control-label"></label>
+                <select asp-for="TipoPropiedad" class="form-control" asp-items="ViewBag.TiposPropiedad">
+                    <option value="">-- Seleccione tipo --</option>
+                </select>
+                <span asp-validation-for="TipoPropiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ValorMaximo" class="control-label"></label>
+                <input asp-for="ValorMaximo" class="form-control" />
+                <span asp-validation-for="ValorMaximo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Observaciones" class="control-label"></label>
+                <input asp-for="Observaciones" class="form-control" />
+                <span asp-validation-for="Observaciones" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al listado</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
